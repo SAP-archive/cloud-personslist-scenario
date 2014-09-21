@@ -5,32 +5,33 @@ sap.ui.controller("personslist-web.personslist", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf personslist-web.personslist
 */
-	   onInit: function() {
-	       var oPersonsModel = new sap.ui.model.json.JSONModel();
+	onInit : function() {
+		var sOrigin = window.location.protocol + "//" + window.location.hostname
+				+ (window.location.port ? ":" + window.location.port : "");
+		var personsListOdataServiceUrl = sOrigin + "/personslist-repo-web/personslist.svc";
 
-	       oPersonsModel.setData({
-				           Persons : [ {
-					FirstName : "",
-					LastName : ""
-				} ]
-	       });
+		var odataModel = new sap.ui.model.odata.ODataModel(
+				personsListOdataServiceUrl);
+		odataModel.setCountSupported(false);
+		this.getView().setModel(odataModel);
+	},
 
-	       this.getView().setModel(oPersonsModel);
+	addNewPerson : function(sFirstName, sLastName, oTable) {
+		var persons = {};
 
-	   },
+		persons.FirstName = sFirstName;
+		persons.LastName = sLastName;
 
-	   addNewPerson : function( sFirstName, sLastName, oTable ) {
-		   var oPersonsModel = new sap.ui.model.json.JSONModel();
-	       oPersonsModel.setData({
-				           Persons : [ {
-					FirstName : sFirstName,
-					LastName : sLastName
-				} ]
-	       });
+		this.getView().getModel().create("/Persons", persons, null, this.successMsg, this.errorMsg);
+	},
 
-		   this.getView().setModel(oPersonsModel);
-	       oTable.unbindRows().bindRows("/Persons");
-	   },
+	successMsg : function() {
+		sap.ui.commons.MessageBox.alert("Person entity has been successfully created");
+	},
+
+	errorMsg : function() {
+		sap.ui.commons.MessageBox.alert("Error occured when creating person entity");
+	},
 
 
 /**
