@@ -5,9 +5,33 @@ sap.ui.controller("personslist-web.personslist", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf personslist-web.personslist
 */
-//	onInit: function() {
-//
-//	},
+	   onInit: function() {
+	       var oPersonsModel = new sap.ui.model.json.JSONModel();
+
+	       oPersonsModel.setData({
+				           Persons : [ {
+					FirstName : "",
+					LastName : ""
+				} ]
+	       });
+
+	       this.getView().setModel(oPersonsModel);
+
+	   },
+
+	   addNewPerson : function( sFirstName, sLastName, oTable ) {
+		   var oPersonsModel = new sap.ui.model.json.JSONModel();
+	       oPersonsModel.setData({
+				           Persons : [ {
+					FirstName : sFirstName,
+					LastName : sLastName
+				} ]
+	       });
+
+		   this.getView().setModel(oPersonsModel);
+	       oTable.unbindRows().bindRows("/Persons");
+	   },
+
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
