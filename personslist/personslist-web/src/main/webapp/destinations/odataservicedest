@@ -1,0 +1,6 @@
+Name=odataservicedest
+URL=https://odataespmhana.hana.ondemand.com/personslist-repo-web/sampleodata.svc
+Type=HTTP
+Authentication=NoAuthentication
+TrustAll=true
+ProxyType=Internet

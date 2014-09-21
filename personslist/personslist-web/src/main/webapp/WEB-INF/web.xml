@@ -39,4 +39,19 @@
 		<url-pattern>/personslist.svc/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- Connectivity Proxy servlet -->
+	<servlet>
+		<display-name>ConnectivityProxy</display-name>
+		<servlet-name>ConnectivityProxy</servlet-name>
+		<servlet-class>com.sap.cloudlabs.connectivity.proxy.ProxyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConnectivityProxy</servlet-name>
+		<url-pattern>/proxy/odataservicedest/*</url-pattern>
+	</servlet-mapping>
+	<resource-ref>
+		<res-ref-name>connectivity/DestinationFactory</res-ref-name>
+		<res-type>com.sap.core.connectivity.api.DestinationFactory</res-type>
+	</resource-ref>
+
 </web-app>

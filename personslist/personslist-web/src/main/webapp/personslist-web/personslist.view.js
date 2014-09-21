@@ -2,10 +2,12 @@ sap.ui.jsview("personslist-web.personslist", {
 
 	oFirstNameField : null,
 	oLastNameField : null,
+	oCountriesDropDown : null,
 	oCrudPanel : null,
 	oMsgViewHLayout : null,
 	oMsgField : null,
 	oMsgIcon : null,
+	
 
 	/** Specifies the Controller belonging to this View. 
 	* In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
@@ -33,6 +35,7 @@ sap.ui.jsview("personslist-web.personslist", {
 				if(oRowCtx!==null){ // in case of table.clearSelection() it is null
 					that.oFirstNameField.bindElement(oRowCtx.getPath());
 					that.oLastNameField.bindElement(oRowCtx.getPath());
+					that.oCountriesDropDown.bindProperty("selectedKey", oRowCtx.getPath() + "/CountryCode")
 				}
 			}
 		});
@@ -42,7 +45,7 @@ sap.ui.jsview("personslist-web.personslist", {
 			label : new sap.ui.commons.Label({
 				text : "First Name"
 			}),
-			template : new sap.ui.commons.TextField().bindProperty("value", "FirstName"),
+			template : new sap.ui.commons.TextView().bindProperty("text", "FirstName"),
 			sortProperty : "FirstName",
 			filterProperty : "FirstName",
 			width : "20%"
@@ -51,10 +54,19 @@ sap.ui.jsview("personslist-web.personslist", {
 			label : new sap.ui.commons.Label({
 				text : "Last Name"
 			}),
-			template : new sap.ui.commons.TextField().bindProperty("value", "LastName"),
+			template : new sap.ui.commons.TextView().bindProperty("text", "LastName"),
 			sortProperty : "LastName",
 			filterProperty : "LastName",
-			width : "80%"
+			width : "60%"
+		}));
+		oPersonsTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "Country"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "Country"),
+			sortProperty : "Country",
+			filterProperty : "Country",
+			width : "20%"
 		}));
 
 		// bind table rows to /Persons based on the model defined in the init method of the controller
@@ -150,6 +162,17 @@ sap.ui.jsview("personslist-web.personslist", {
 			content : [ oLastNameLabel,this.oLastNameField]
 		}).addStyleClass("padding-top-2px");
 
+		// countries dropdown
+		var oCountryLabel = new sap.ui.commons.Label({
+			text : 'Country'
+		}).addStyleClass("padding-3px-5px-3px-19px");
+		this.oCountriesDropDown = new sap.ui.commons.DropdownBox();
+		oCountryLabel.setLabelFor(this.oCountriesDropDown);
+
+		var oCountryHLayout = new sap.ui.commons.layout.HorizontalLayout({
+			content : [ oCountryLabel, this.oCountriesDropDown]
+		}).addStyleClass("padding-top-2px");
+
 		// messages area (only visible if a message is displayed)
 		this.oMsgField = new sap.ui.commons.TextView({
 			text : ""
@@ -177,6 +200,7 @@ sap.ui.jsview("personslist-web.personslist", {
 		var oCrudPanelVLayout = new sap.ui.commons.layout.VerticalLayout({
 			content : [ oFirstNameHLayout, 
 						oLastNameHLayout, 
+						oCountryHLayout, 
 						this.oMsgViewHLayout, 
 						new sap.ui.commons.layout.VerticalLayout({
 							content : [ 
@@ -214,7 +238,23 @@ sap.ui.jsview("personslist-web.personslist", {
 						text : "Persons OData Serivce",
 						href : oController.getPersonsODataServiceURL(),
 						target : "_blank"
-					}).addStyleClass("margin-left-3px") ]
+					}).addStyleClass("margin-left-and-right-3px"),
+					new sap.ui.commons.TextView({
+						text : "is extended by a Country field.",
+						design : sap.ui.commons.TextViewDesign.Standard
+					})]
+				}),
+				new sap.ui.commons.layout.HorizontalLayout({
+					content : [ 
+					new sap.ui.commons.TextView({
+						text : "Available Countries coming from external",
+						design : sap.ui.commons.TextViewDesign.Standard
+					}), 
+					new sap.ui.commons.Link({
+						text : "Countries OData Serivce",
+						href : "https://odataespmhana.hana.ondemand.com/personslist-repo-web/sampleodata.svc/Countries/",
+						target : "_blank"
+					}).addStyleClass("margin-left-3px") ],
 				})]
 			}).addStyleClass("padding-5px-0px-10px-2px");
 
@@ -247,6 +287,9 @@ sap.ui.jsview("personslist-web.personslist", {
 
 	getMsgIcon : function() {
 		return this.oMsgIcon;
-	}
+	},
 
+	getCountriesDropDownBox : function() {
+		return this.oCountriesDropDown;
+	}
 });

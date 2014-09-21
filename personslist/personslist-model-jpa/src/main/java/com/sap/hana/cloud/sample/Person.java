@@ -17,6 +17,8 @@ public class Person implements Serializable {
 	private long id;
 	private String firstName;
 	private String lastName;
+	private String country;
+	private String countryCode;
 
 	public long getId() {
 		return id;
@@ -40,6 +42,22 @@ public class Person implements Serializable {
 
 	public void setLastName(String param) {
 		this.lastName = param;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 }
