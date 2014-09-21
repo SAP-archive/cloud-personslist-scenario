@@ -90,4 +90,143 @@
 		<finalName>${project.artifactId}</finalName>
 	</build>
 
+	<profiles>
+		<!-- Choose correct command line scripts for interaction with SAP HANA 
+			Cloud based on detected operating system -->
+		<profile>
+			<id>unix-scripts</id>
+			<activation>
+				<os>
+					<family>Unix</family>
+				</os>
+			</activation>
+			<properties>
+				<sap.cloud.console.shell>sh</sap.cloud.console.shell>
+				<sap.cloud.console.script>neo.sh</sap.cloud.console.script>
+			</properties>
+		</profile>
+		<profile>
+			<id>windows-scripts</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+				</os>
+			</activation>
+			<properties>
+				<sap.cloud.console.shell>cmd</sap.cloud.console.shell>
+				<sap.cloud.console.script>/c neo.bat</sap.cloud.console.script>
+			</properties>
+		</profile>
+		<!-- Install local server from the P2 repository that is contained inside
+			the SDK, deploy the built web application into it, start local server, wait
+			for it and the built and deployed web application to become available, integration-test
+			the web application on the local server, and stop the local server finally -->
+		<profile>
+			<id>local-integration-tests</id>
+			<activation>
+				<property>
+					<name>local.integration.tests</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- Find free random ports for the local test server -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<phase>validate</phase>
+								<configuration>
+									<portNames>
+										<portName>local.server.console.port</portName>
+										<portName>local.server.jmx.port</portName>
+										<portName>local.server.http.port</portName>
+										<portName>local.server.https.port</portName>
+										<portName>local.server.ajp.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>prepare-local-server</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<exec dir="${sap.cloud.sdk.path}/tools" executable="${sap.cloud.console.shell}"
+											failonerror="true">
+											<arg
+												line="${sap.cloud.console.script} install-local --location ${local.server.root} --jmxPort ${local.server.jmx.port} --httpPort ${local.server.http.port} --httpsPort ${local.server.https.port} --ajpPort ${local.server.ajp.port} ${local.server.proxy.settings}" />
+										</exec>
+										<copy file="${project.build.directory}/${project.artifactId}.war"
+											todir="${local.server.root}/pickup" />
+										<exec dir="${sap.cloud.sdk.path}/tools" executable="${sap.cloud.console.shell}"
+											failonerror="true">
+											<arg
+												line="${sap.cloud.console.script} start-local --location ${local.server.root} --consolePort ${local.server.console.port} --waitUrl http://${local.server.host}:${local.server.http.port}/${project.artifactId}/ --waitUrlTimeout 120" />
+										</exec>
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>cleanup-local-server</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<exec dir="${sap.cloud.sdk.path}/tools" executable="${sap.cloud.console.shell}"
+											failonerror="true">
+											<arg
+												line="${sap.cloud.console.script} stop-local --consolePort ${local.server.console.port}" />
+										</exec>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.14</version>
+						<executions>
+							<execution>
+								<id>execute-local-integration-tests</id>
+								<goals>
+									<goal>integration-test</goal>
+								</goals>
+								<configuration>
+									<argLine>${browser.proxy.settings}</argLine>
+									<systemPropertyVariables>
+										<integration.test.server.url>http://${local.server.host}:${local.server.http.port}</integration.test.server.url>
+										<webdriver.firefox.bin>${webdriver.firefox.bin}</webdriver.firefox.bin>
+									</systemPropertyVariables>
+								</configuration>
+							</execution>
+							<execution>
+								<id>verify-local-integration-tests</id>
+								<goals>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
