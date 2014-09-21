@@ -11,6 +11,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+		<!-- use neo-sdk version available on Central Maven -->
+		<sap.cloud.sdk.version>1.61.19</sap.cloud.sdk.version>
+
 		<!-- Properties that hold the local server information required for local
 			integration testing -->
 		<local.server.root>${project.build.directory}/server</local.server.root>
@@ -54,20 +57,6 @@
 			<version>1.7.2</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- Selenium test dependencies -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>2.43.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.7</version>
-			<scope>test</scope>
-		</dependency>
-		
 	</dependencies>
 
 	<build>
