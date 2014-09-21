@@ -12,8 +12,8 @@ Table of Contents
 2.  Download Samples from Github
 
 3.  Import and Maven build the Samples
-3.1   Import Extension-000 sample as Maven Project
-3.2   Maven build of Extension-000 sample
+3.1   Import Extension-002 sample as Maven Project
+3.2   Maven build of Extension-002 sample
 
 4.  Run Samples 
 4.1   On local Java Web Server
@@ -52,13 +52,13 @@ Developers which do not have any experience with EGit can execute the detailed t
 1. Open https://github.com/SAP/cloud-personslist-scenario/ and copy the Git URL to clipboard
 2. In Git Repositories View clone the cloud-personslist-scenario Git Repository and add it to the view
 3. By default the origin/master branch is checked out as local master branch
-4. From the Remote tracking branch origin/Extension-000 create a local branch and check in out
-The checked out local branch contains the sources of the PersonsList Extension-000 sample
+4. From the Remote tracking branch origin/Extension-002 create a local branch and check in out
+The checked out local branch contains the sources of the PersonsList Extension-002 sample
 
 
 3. Import and Maven build the Samples
 =====================================
-3.1 Import Extension-000 sample as Maven Project
+3.1 Import Extension-002 sample as Maven Project
 ------------------------------------------------
 1. Eclipse menu: File > Import... ; Maven > Existing Maven Projects; choose Next
 2. Choose Browse... and navigate to location C:<local_path_to_cloud-personslist-scenario> 
@@ -67,7 +67,7 @@ The checked out local branch contains the sources of the PersonsList Extension-0
 
 These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Chapter 1.2.2)
   
-3.2 Maven build of Extension-000 sample
+3.2 Maven build of Extension-002 sample
 ---------------------------------------
 1. Select personslist-repo/pom.xml and open context menu 
 2. Choose Run As > Maven build... ; Edit Configuration dialog opens 
@@ -93,7 +93,7 @@ Before you continue with 4.1 or 4.2 make sure that an external Web Browser (e.g.
 3. Window Run On Server opens. Make sure that the Manually define new server option is selected. 
 4. Select 'SAP' > 'Java Web Server' as server type 
 5. Choose Finish.
-After about a minute the PersonsList Extension-000 application, running on local Java Web Server, is launched with the external Web browser you configured before.
+After about a minute the PersonsList Extension-002 application, running on local Java Web Server, is launched with the external Web browser you configured before.
 
 These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Appendix A1.1)
 
@@ -117,9 +117,9 @@ Before you can publish your PersonsList Extension sample on SAP HANA Cloud Platf
   4. Select 'SAP' > 'SAP HANA Cloud Platform' as server type 
   5. Change default Server’s host name 'hana.ondemand.com' to 'handtrial.ondemand.com'
   6. Choose Next
-  6. Enter Application name e.g. 'sample000' (only small letters(a-z) and numbers are allowed)
+  6. Enter Application name e.g. 'sample002' (only small letters(a-z) and numbers are allowed)
   8. Then enter your SAP HANA Cloud Developer Account name (<p-user>trial), (SCN) User name (<p-user>) and your password. 
   9. Choose Finish.
-After about a minute the PersonsList Extension-000 application, running on SAP HANA Cloud Platform, is launched with the external Web browser you configured before.
+After about a minute the PersonsList Extension-002 application, running on SAP HANA Cloud Platform, is launched with the external Web browser you configured before.
 
 These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Appendix A1.2 shortly and in chapter 5 in more detail)

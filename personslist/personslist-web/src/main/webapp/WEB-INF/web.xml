@@ -7,6 +7,16 @@
 
 	<display-name>personslist-web</display-name>
 
+
+	<!-- data load startup servlet -->
+	<servlet>
+		<description></description>
+		<display-name>StartupServlet</display-name>
+		<servlet-name>StartupServlet</servlet-name>
+		<servlet-class>com.sap.hana.cloud.web.StartupServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
 	<!-- Enable usage of Cloud persistence service -->
 	<resource-ref>
 	    <res-ref-name>jdbc/DefaultDB</res-ref-name>
