@@ -11,13 +11,11 @@ Table of Contents
 
 2.  Download Samples from Github
 
-3.  Import and Maven build the Samples
-3.1   Import Extension-001 sample as Maven Project
-3.2   Maven build of Extension-001 sample
+3.  Import Extension-003 Sample as Maven Project
 
 4.  Run Samples 
-4.1   On local Java Web Server
-4.2   On SAP HANA Cloud Platform
+4.1   JavaScript Unit Tests in web browser
+4.2   JavaScript Unit Tests as part of Maven build
 
 
 1. Installation Steps (for PersonsList Extensions)
@@ -52,14 +50,12 @@ Developers which do not have any experience with EGit can execute the detailed t
 1. Open https://github.com/SAP/cloud-personslist-scenario/ and copy the Git URL to clipboard
 2. In Git Repositories View clone the cloud-personslist-scenario Git Repository and add it to the view
 3. By default the origin/master branch is checked out as local master branch
-4. From the Remote tracking branch origin/Extension-001 create a local branch and check in out
-The checked out local branch contains the sources of the PersonsList Extension-001 sample
+4. From the Remote tracking branch origin/Extension-003 create a local branch and check in out
+The checked out local branch contains the sources of the PersonsList Extension-003 sample
 
 
-3. Import and Maven build the Samples
-=====================================
-3.1 Import Extension-001 sample as Maven Project
-------------------------------------------------
+3. Import Extension-003 Sample as Maven Project
+===============================================
 1. Eclipse menu: File > Import... ; Maven > Existing Maven Projects; choose Next
 2. Choose Browse... and navigate to location C:<local_path_to_cloud-personslist-scenario> 
   (the location where you downloaded before the cloud-personslist-scenario Git Repository)
@@ -67,59 +63,23 @@ The checked out local branch contains the sources of the PersonsList Extension-0
 
 These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Chapter 1.2.2)
   
-3.2 Maven build of Extension-001 sample
----------------------------------------
-1. Select personslist-repo/pom.xml and open context menu 
-2. Choose Run As > Maven build... ; Edit Configuration dialog opens 
-3. Enter "clean install" as Goals
-4. Choose Run to start the Maven build 
-The Maven build should finish with a BUILD SUCCESS message
-
-These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Appendix A1 and Maven configuration in chapter 1.6)
-
-
 4. Run Samples 
 ==============
-You can either run the PersonsList Extension samples on local test server (4.1) as part of eclipse or publish and run it on SAP HANA Cloud (4.2)
+You can either run the JavaScript Unit Tests in web browser (4.1) or as part of the Maven build by executing PhantomJS (4.2)
 
-Before you continue with 4.1 or 4.2 make sure that an external Web Browser (e.g. Chrome) is launched:
-1. Eclipse menu: Choose Window > Preferences; then General > Web Browser. 
-2. Choose option 'Use external Web Browser' and select 'Default system web browser'. Confirm with OK.
+4.1 JavaScript Unit Tests in web browser
+----------------------------------------
+1. Select personslist-repo-web/pom.xml and open context menu 
+2. Choose Run As > Maven build... ; Edit Configuration dialog opens 
+3. Enter "mvn jasmine:bdd" as Goals
+4. Choose Run to start the Maven build
+In the console output you will find at the localhost URL 'http://localhost:<port>' (with a random <port>) 
+5. Open the localhost URL in web browser to execute the JavaScript Unit Tests for the PersonsList UI5 Applications 
 
-4.1 On local Java Web Server
-----------------------------
-1. In Eclipse Project Explorer view select project node personslist-repo-web 
-2. On the selected project node open context menu and choose Run As > Run on Server. 
-3. Window Run On Server opens. Make sure that the Manually define new server option is selected. 
-4. Select 'SAP' > 'Java Web Server' as server type 
-5. Choose Finish.
-After about a minute the PersonsList Extension-001 application, running on local Java Web Server, is launched with the external Web browser you configured before.
-
-These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Appendix A1.1)
-
-4.2 On SAP HANA Cloud Platform
-------------------------------
-Before you can publish your PersonsList Extension sample on SAP HANA Cloud Platform you need to register for a free developer trial account
-
-4.2.1 Register for a free SAP HANA Cloud Platform Developer Account
-
-  1.open https://account.hanatrial.ondemand.com/ > Register
-   -> After registration you have a 
-   SAP HANA Cloud Developer Account name: "<your p-User>trial" (p-user with lower case)
-   (SCN) User name: <your p-User> (alternatively <e-mail> as user)
-   (SCN) User account password: <********>
-
-4.2.2 Publish and Run PersonsList Application on your Trial Developer Account
-
-  1. Select personslist-repo-web project node
-  2. Open context menu Run As > Run on Server.
-  3. Make sure that 'Manually define a new server' option is selected.
-  4. Select 'SAP' > 'SAP HANA Cloud Platform' as server type 
-  5. Change default Server’s host name 'hana.ondemand.com' to 'handtrial.ondemand.com'
-  6. Choose Next
-  6. Enter Application name e.g. 'sample001' (only small letters(a-z) and numbers are allowed)
-  8. Then enter your SAP HANA Cloud Developer Account name (<p-user>trial), (SCN) User name (<p-user>) and your password. 
-  9. Choose Finish.
-After about a minute the PersonsList Extension-001 application, running on SAP HANA Cloud Platform, is launched with the external Web browser you configured before.
-
-These steps are described in more detail in  http://scn.sap.com/docs/DOC-41427 (see Appendix A1.2 shortly and in chapter 5 in more detail)
+4.2 JavaScript Unit Tests as part of Maven build
+------------------------------------------------
+1. Select personslist-repo-web/pom.xml and open context menu 
+2. Choose Run As > Maven build... ; Edit Configuration dialog opens 
+3. Enter "jasmine:test" as Goals
+4. Choose Run to start the Maven build 
+Find the executed tests in the console output under 'J A S M I N E   S P E C S'

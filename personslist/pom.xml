@@ -19,6 +19,10 @@
 		<local.server.root>${project.build.directory}/server</local.server.root>
 		<local.server.host>localhost</local.server.host>
 		<m2e.jaxrs.activation>false</m2e.jaxrs.activation>
+
+		<!-- Properties for your proxy settings -->
+		<proxy.host>proxy</proxy.host>
+		<proxy.port>8080</proxy.port>
 	</properties>
 
 	<modules>
