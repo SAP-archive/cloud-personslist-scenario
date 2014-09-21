@@ -81,6 +81,16 @@
 		<url-pattern>/proxy/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- This option enables proxying of resources from a remote location (in the cloud) -->
+	<context-param>
+	    <param-name>com.sap.ui5.resource.REMOTE_LOCATION</param-name>
+	    <param-value>https://sapui5.hana.ondemand.com</param-value>
+	</context-param>
+	<!-- Enable usage of Cloud persistence service -->
+	<resource-ref>
+	    <res-ref-name>jdbc/DefaultDB</res-ref-name>
+	    <res-type>javax.sql.DataSource</res-type>
+	</resource-ref>
 
 	<!-- ============================================================== -->
 	<!-- Welcome file list                                              -->
