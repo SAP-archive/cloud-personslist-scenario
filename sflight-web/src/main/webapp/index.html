@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>SFlight JCo Connectivity Sample Web Application</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.ui.commons,sap.ui.table,sap.ui.layout"
+				data-sap-ui-theme="sap_bluecrystal" >
+		</script>
+
+		<script>
+			sap.ui.localResources("sflight-web");
+			var view = sap.ui.view({id:"idsflight", viewName:"sflight-web.sflight", type:sap.ui.core.mvc.ViewType.JS});
+			view.placeAt("content");
+		</script>
+
+	</head>
+	<style type="text/css">
+	.margin-8px {
+		margin: 8px;
+	}
+	.padding-3px-5px-3px-0px {
+		padding: 3px 5px 3px 0px;
+	}
+	.padding-0px-5px-5px-0px {
+		padding: 0px 5px 5px 0px;
+	}
+	.padding-5px-0px-10px-2px {
+		padding: 5px 0px 10px 2px;
+	}
+
+	.padding-3px-5px-3px-19px {
+		padding: 3px 5px 3px 19px;
+	}
+
+	.padding-top-10px {
+		padding: 10px 0px 0px 0px;
+	}
+
+	.padding-right-10px {
+		padding: 0px 10px 0px 0px;
+	}
+
+	.padding-top-30px {
+		padding: 30px 0px 0px 0px;
+	}
+	.padding-top-10px {
+		padding: 10px 0px 0px 0px;
+	}
+	.padding-top-2px {
+		padding: 2px 0px 0px 0px;
+	}
+	.margin-left-5px {
+		margin: 0px 0px 0px 5px;
+	}
+	.padding-right-20px {
+		padding: 0px 20px 0px 0px;
+	}
+	
+	.margin-left-and-right-3px {
+		margin: 0px 3px 0px 3px;
+	}
+	
+	</style>
+<body class="sapUiBody" role="application">
+		<div class="margin-10px" id="content"></div>
+	</body>
+</html>

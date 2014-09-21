@@ -1,0 +1,12 @@
+# copy this destination file into the root directory of the local HCP runtime
+# and adopt the properties to refer to the locally accessible ABAP system you like 
+# to use for the sample application
+jco.client.client=
+jco.client.lang=EN
+jco.client.group=PUBLIC
+jco.client.mshost=
+jco.client.r3name=
+jco.client.user=
+jco.client.passwd=
+jco.destination.peak_limit=10
+jco.destination.pool_capacity=5
