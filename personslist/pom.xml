@@ -19,10 +19,8 @@
 	</properties>
 
 	<modules>
-		<!--
 		<module>personslist-model-jpa</module>
 		<module>personslist-web</module>
-		-->
 	</modules>
 
 	<dependencies>
