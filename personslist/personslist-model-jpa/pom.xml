@@ -4,11 +4,11 @@
 
 	<parent>
 		<groupId>com.sap.hana.cloud.sample</groupId>
-		<artifactId>personslist-repo</artifactId>
+		<artifactId>personslist</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>personslist-repo-model-jpa</artifactId>
+	<artifactId>personslist-model-jpa</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
