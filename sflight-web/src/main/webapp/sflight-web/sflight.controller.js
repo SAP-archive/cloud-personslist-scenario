@@ -30,11 +30,10 @@ sap.ui.controller("sflight-web.sflight",
 				oJsonModel.loadData(this.getFlightServiceURL() + "/flights/" + cityFrom + "/" + cityTo, null, false);
 				var oTable = this.getView().getFlightTable();
 				oTable.setModel(oJsonModel);							
-				oTable.bindRows("/data");	
-				oTable.sort(oTable.getColumns()[0]);					
+				oTable.bindRows("/FLIGHTLIST");	
 				if (showMessage) {						
-					if (oJsonModel.oData.data) {
-						this.showMsgArea("info", oJsonModel.oData.data.length + " flights from " + cityFrom + " to " + cityTo + " loaded.");
+					if (oJsonModel.oData.FLIGHTLIST) {
+						this.showMsgArea("info", oJsonModel.oData.FLIGHTLIST.length + " flights from " + cityFrom + " to " + cityTo + " loaded.");
 					} else {
 						this.showMsgArea("info", "No flights available from " + cityFrom + " to " + cityTo + ".");
 					}

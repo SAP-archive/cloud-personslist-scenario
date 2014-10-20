@@ -12,7 +12,7 @@ import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoStructure;
-import com.sap.conn.jco.JCoTable;
+
 
 /**
  * The class is a <code>FlightProvider</code> implementation that uses JCo for
@@ -73,7 +73,8 @@ public class JCoFlightProvider extends HttpServlet implements FlightProvider {
 	 * .lang.String, java.lang.String)
 	 */
 	public String getFlightList(String cityFrom, String cityTo) {
-		try {
+
+		try {			
 			JCoDestination destination = JCoDestinationManager.getDestination(SFLIGHT_DESTINATION);
 			JCoFunction bapiSflightGetList = destination.getRepository().getFunction(BAPI_SFLIGHT_GETLIST);
 
@@ -90,10 +91,9 @@ public class JCoFlightProvider extends HttpServlet implements FlightProvider {
 			}
 
 			bapiSflightGetList.execute(destination);
+			
+			return bapiSflightGetList.getTableParameterList().toJSON();
 
-			JCoTable flightList = bapiSflightGetList.getTableParameterList().getTable("FLIGHTLIST");
-			String result = JCoUtils.tableToJson(flightList);
-			return result;
 		} catch (JCoException e) {
 			throw new RuntimeException(e);
 		}
@@ -128,12 +128,9 @@ public class JCoFlightProvider extends HttpServlet implements FlightProvider {
 			JCoStructure flightData = exports.getStructure("FLIGHTDATA");
 
 			if (bapiReturn.getChar(0) != 'S') {
-				// pw.println("<h2> " + bapiReturn.getString("MESSAGE") +
-				// "</h2>");
 				throw new IllegalArgumentException("TODO: handle this case");
 			} else {
-				String result = JCoUtils.recordToJson(flightData);
-				return result;
+				return flightData.toJSON();
 			}
 		} catch (JCoException e) {
 			throw new RuntimeException(e);

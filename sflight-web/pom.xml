@@ -34,7 +34,7 @@
 
 	<properties>
 		<hcp.jdk.version>1.6</hcp.jdk.version>
-		<hcp.sdk.version>1.44.0.1</hcp.sdk.version>
+		<hcp.sdk.version>2.45.7.2</hcp.sdk.version>
 		<org.apache.cxf.version>2.7.5</org.apache.cxf.version>
 		<org.springframework.version>3.1.2.RELEASE</org.springframework.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,7 +73,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.sap.cloud</groupId>
-			<artifactId>neo-java-web-api</artifactId>
+			<artifactId>neo-javaee6-wp-api</artifactId>
 			<version>${hcp.sdk.version}</version>
 			<scope>provided</scope>
 		</dependency>

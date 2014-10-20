@@ -78,9 +78,8 @@ sap.ui.jsview("sflight-web.sflight", {
 				rowSelectionChange : function(oEvent) {
 					var index = that.oFlightsTable.getSelectedIndex();
 					if (index > -1) {
-						var row = that.oFlightsTable.getRows()[index];
-						var cells = row.getCells();
-						oController.getFlightDetails(cells[0].getText(), cells[1].getText(), cells[2].getText());
+						var selectedFlight = that.oFlightsTable.getModel().getData().FLIGHTLIST[index];
+						oController.getFlightDetails(selectedFlight.CARRID, selectedFlight.CONNID, selectedFlight.FLDATE);
 						that.oFlightDetailsPanel.setVisible(true);
 					}
 				},
@@ -443,10 +442,8 @@ sap.ui.jsview("sflight-web.sflight", {
 							press : function() {
 								var index = that.oFlightsTable.getSelectedIndex();
 								if (index > -1) { 
-									var row = that.oFlightsTable.getRows()[index];
-									var cells = row.getCells();
-									oController.bookFlight(cells[0].getText(), cells[1].getText(), cells[2]
-											.getText());
+									var selectedFlight = that.oFlightsTable.getModel().getData().FLIGHTLIST[index];
+									oController.bookFlight(selectedFlight.CARRID, selectedFlight.CONNID, selectedFlight.FLDATE);
 									var cityFrom = that.oDepartureCombo.getSelectedKey();
 									var cityTo = that.oArrivalCombo.getSelectedKey();
 									oController.searchFlights(cityFrom, cityTo, false);									
