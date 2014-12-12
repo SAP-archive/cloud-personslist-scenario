@@ -41,7 +41,7 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.3.2</version>
 			<scope>provided</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -84,6 +84,16 @@
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
 			<version>2.7.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>openui5</artifactId>
+			<version>1.24.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -108,7 +118,7 @@
 								<artifactItem>
 									<groupId>org.jboss.arquillian.extension</groupId>
 									<artifactId>arquillian-phantom-binary</artifactId>
-									<version>1.9.2</version>
+									<version>1.9.7</version>
 									<classifier>${phantomjs.os.classifier}</classifier>
 								</artifactItem>
 							</artifactItems>
@@ -121,7 +131,7 @@
 			<plugin>
 				<groupId>com.github.searls</groupId>
 				<artifactId>jasmine-maven-plugin</artifactId>
-				<version>1.3.1.4</version>
+				<version>1.3.1.5</version>
 				<executions>
 					<execution>
 						<goals>
@@ -130,10 +140,17 @@
 					</execution>
 				</executions>
 				<configuration>
-					<!-- Where is your productive JavaScript code -->
-					<jsSrcDir>${basedir}/src/main/webapp/personslist-web</jsSrcDir>
-					<!-- Where are your test.js files -->
-					<jsTestSrcDir>${basedir}/src/test/js</jsTestSrcDir>
+					<jsSrcDir>${basedir}</jsSrcDir>
+					 <jsTestSrcDir>${basedir}</jsTestSrcDir>
+					 <specIncludes>
+					 <include>/src/test/js/**/*.js</include>
+					</specIncludes>
+					 <sourceIncludes>
+					</sourceIncludes>
+					<preloadSources>
+						<source>/src/main/webapp/META-INF/resources/ui5-test-bootstrap.js</source>
+						<source>webjars/openui5/1.24.2/sap-ui-core.js</source>
+					</preloadSources>
 					<!-- Use PhantomJS to access the Test.html, assuming it is available on your PATH -->
 					<webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
 					<webDriverCapabilities>
@@ -152,8 +169,6 @@
 					<junitXmlReportFileName>../surefire/TEST-${project.name}.jasmine.xml</junitXmlReportFileName>
 					<!-- Execute tests automatically every 60 seconds -->
 					<autoRefreshInterval>60</autoRefreshInterval>
-					<!-- Use a custom template to generate the Test.html. This includes UI5 bootstrapping -->
-					<customRunnerTemplate>${basedir}/src/test/resources/Test.html.template</customRunnerTemplate>
 				</configuration>
 			</plugin>
 		</plugins>
